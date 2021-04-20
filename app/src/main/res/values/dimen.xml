@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_small">10dp</dimen>
+    <dimen name="margin_medium">15dp</dimen>
+    <dimen name="margin_x_medium">17dp</dimen>
+    <dimen name="margin_xx_medium">20dp</dimen>
+    <dimen name="margin_xxx_medium">25dp</dimen>
+    <dimen name="margin_large">30dp</dimen>
+    <dimen name="margin_x_large">35dp</dimen>
+    <dimen name="margin_xx_large">40dp</dimen>
+    <dimen name="margin_xxx_large">45dp</dimen>
+
+    <dimen name="margin_fab_bottom">15dp</dimen>
+    <dimen name="margin_fab_end">15dp</dimen>
+
+    // Search fragment
+    <dimen name="search_margin_top">@dimen/margin_small</dimen>
+    <dimen name="search_button_margin_top">@dimen/margin_xx_medium</dimen>
+    <dimen name="search_button_margin_end">@dimen/margin_medium</dimen>
+    <dimen name="search_button_margin_bottom">@dimen/margin_small</dimen>
+    <dimen name="search_text_margin_bottom">@dimen/margin_large</dimen>
+
+    // Recycle view item
+    <dimen name="item_margin_top">@dimen/margin_small</dimen>
+    <dimen name="item_margin_start">@dimen/margin_small</dimen>
+
+    <dimen name="text_size_tip">10sp</dimen>
+    <dimen name="text_size_standard">20sp</dimen>
+    <dimen name="text_size_standard_header">24sp</dimen>
+    <dimen name="text_size_large">25sp</dimen>
+</resources>
