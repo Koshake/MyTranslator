@@ -41,7 +41,7 @@ class MainAdapter(
             if (layoutPosition != RecyclerView.NO_POSITION) {
                 itemView.header_textview_recycler_item.text = data.text
                 itemView.description_textview_recycler_item.text =
-                    data.translation?.get(0)?.translation?.text
+                    data.meanings?.get(0)?.translation?.text
 
                 itemView.setOnClickListener { onListItemClickListener.onItemClick(data) }
             }

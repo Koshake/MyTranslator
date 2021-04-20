@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import com.koshake1.mytranslator.R
+import com.koshake1.mytranslator.application.TranslatorApp
 
 class MainActivity : AppCompatActivity() {
 

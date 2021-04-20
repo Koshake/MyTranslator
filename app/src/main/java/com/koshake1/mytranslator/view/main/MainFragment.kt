@@ -7,23 +7,34 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.koshake1.mytranslator.R
+import com.koshake1.mytranslator.application.TranslatorApp
 import com.koshake1.mytranslator.model.data.AppState
 import com.koshake1.mytranslator.model.data.DataModel
-import com.koshake1.mytranslator.presenter.Presenter
 import com.koshake1.mytranslator.view.base.BaseFragment
-import com.koshake1.mytranslator.view.base.MainView
 import com.koshake1.mytranslator.view.main.adapter.MainAdapter
+import com.koshake1.mytranslator.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.fragment_main.*
+import javax.inject.Inject
 
 class MainFragment : BaseFragment<AppState>() {
 
     companion object {
         const val TAG = "fragment tag"
-        const val SEARCH_FRAGMENT_TAG : String = "add_search_dialog_fragment"
+        const val SEARCH_FRAGMENT_TAG: String = "add_search_dialog_fragment"
     }
 
+    @Inject
+    internal lateinit var viewModelFactory: ViewModelProvider.Factory
+
+    override val model: MainViewModel by lazy {
+        ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+    }
+
+    private val observer = Observer<AppState> { renderData(it) }
     private var adapter: MainAdapter? = null
 
     private val onListItemClickListener: MainAdapter.OnListItemClickListener =
@@ -32,9 +43,6 @@ class MainFragment : BaseFragment<AppState>() {
                 Toast.makeText(context, data.text, Toast.LENGTH_SHORT).show()
             }
         }
-    override fun createPresenter(): Presenter<AppState, MainView> {
-        return MainPresenterImpl()
-    }
 
     override fun renderData(appState: AppState) {
         when (appState) {
@@ -46,7 +54,8 @@ class MainFragment : BaseFragment<AppState>() {
                     showViewSuccess()
                     if (adapter == null) {
                         main_activity_recyclerview.layoutManager = LinearLayoutManager(context)
-                        main_activity_recyclerview.adapter = MainAdapter(onListItemClickListener, dataModel)
+                        main_activity_recyclerview.adapter =
+                            MainAdapter(onListItemClickListener, dataModel)
                     } else {
                         adapter!!.setData(dataModel)
                     }
@@ -75,7 +84,9 @@ class MainFragment : BaseFragment<AppState>() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        TranslatorApp.component.inject(this)
         Log.d(TAG, "Main fragment onCreate view ")
+        model.viewState.observe(this@MainFragment, observer)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -84,13 +95,17 @@ class MainFragment : BaseFragment<AppState>() {
 
         search_fab.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
-            searchDialogFragment.setOnSearchClickListener(object : SearchDialogFragment.OnSearchClickListener {
+            searchDialogFragment.setOnSearchClickListener(object :
+                SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    presenter.getData(searchWord, true)
+                    model.getData(searchWord, true)
                 }
             })
 
-            searchDialogFragment.show((activity as AppCompatActivity).supportFragmentManager, SEARCH_FRAGMENT_TAG)
+            searchDialogFragment.show(
+                (activity as AppCompatActivity).supportFragmentManager,
+                SEARCH_FRAGMENT_TAG
+            )
         }
     }
 
@@ -98,7 +113,7 @@ class MainFragment : BaseFragment<AppState>() {
         showViewError()
         error_textview.text = error ?: getString(R.string.undefined_error)
         reload_button.setOnClickListener {
-            presenter.getData("hi", true)
+            model.getData("hi", true)
         }
     }
 

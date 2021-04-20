@@ -22,7 +22,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     private var onSearchClickListener: OnSearchClickListener? = null
 
     private val textWatcher = object : TextWatcher {
-        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {}
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             if (searchEditText.text != null && !searchEditText.text.toString().isEmpty()) {
@@ -34,7 +34,7 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
             }
         }
 
-        override fun afterTextChanged(p0: Editable?) { }
+        override fun afterTextChanged(p0: Editable?) {}
     }
 
     override fun onCreateView(
@@ -79,6 +79,6 @@ class SearchDialogFragment : BottomSheetDialogFragment() {
     }
 
     companion object {
-        fun newInstance() : SearchDialogFragment = SearchDialogFragment()
+        fun newInstance(): SearchDialogFragment = SearchDialogFragment()
     }
 }
