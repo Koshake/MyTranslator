@@ -2,9 +2,9 @@ package com.koshake1.mytranslator.model.datasource
 
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.koshake1.mytranslator.model.data.DataModel
-import io.reactivex.Observable
+import kotlinx.coroutines.Deferred
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -18,8 +18,8 @@ class RetrofitDataSourceImpl : IDataSource<List<DataModel>> {
         .excludeFieldsWithoutExposeAnnotation()
         .create()
 
-    override fun getData(word: String): Observable<List<DataModel>> {
-        return getService(BaseInterceptor.interceptor).search(word)
+    override suspend fun getData(word: String): List<DataModel> {
+        return getService(BaseInterceptor.interceptor).search(word).await()
     }
 
     private fun getService(interceptor: Interceptor): ApiService {
@@ -30,7 +30,7 @@ class RetrofitDataSourceImpl : IDataSource<List<DataModel>> {
         return Retrofit.Builder()
             .baseUrl(BASE_URL_LOCATIONS)
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(createOkHttpClient(interceptor))
             .build()
     }

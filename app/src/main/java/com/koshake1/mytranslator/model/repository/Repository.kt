@@ -4,5 +4,5 @@ import io.reactivex.Observable
 
 interface Repository<T> {
 
-    fun getData(text : String) : Observable<T>
+    suspend fun getData(text : String) : T
 }
