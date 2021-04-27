@@ -6,14 +6,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.koshake1.mytranslator.R
 import com.koshake1.mytranslator.model.data.DataModel
-import kotlinx.android.synthetic.main.activity_main_recyclerview_item.view.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import kotlinx.android.synthetic.main.main_recyclerview_item.view.*
 
 class MainAdapter(
-    private var onListItemClickListener: OnListItemClickListener,
-    private var data: List<DataModel>
+    private var onListItemClickListener: OnListItemClickListener
 ) :
     RecyclerView.Adapter<MainAdapter.MainAdapterViewHolder>() {
+
+    private var data : List<DataModel> = arrayListOf()
 
     fun setData(data: List<DataModel>) {
         this.data = data
@@ -23,7 +24,7 @@ class MainAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapterViewHolder {
         return MainAdapterViewHolder(
             LayoutInflater.from(parent.context)
-                .inflate(R.layout.activity_main_recyclerview_item, parent, false) as View
+                .inflate(R.layout.main_recyclerview_item, parent, false) as View
         )
     }
 

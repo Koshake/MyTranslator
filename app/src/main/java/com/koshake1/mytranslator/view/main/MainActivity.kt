@@ -1,10 +1,9 @@
 package com.koshake1.mytranslator.view.main
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import com.koshake1.mytranslator.R
-import com.koshake1.mytranslator.application.TranslatorApp
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,8 +17,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment())
-                .commitNow()
+                .add(R.id.container, MainFragment())
+                .commit()
         }
     }
 }
