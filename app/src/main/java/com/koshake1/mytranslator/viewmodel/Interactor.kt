@@ -1,4 +1,4 @@
-package com.koshake1.mytranslator.presenter
+package com.koshake1.mytranslator.viewmodel
 
 import com.koshake1.mytranslator.model.data.AppState
 import com.koshake1.mytranslator.model.data.DataModel
