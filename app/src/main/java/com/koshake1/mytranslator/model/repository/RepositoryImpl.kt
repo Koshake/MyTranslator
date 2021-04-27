@@ -7,7 +7,7 @@ import io.reactivex.Observable
 
 class RepositoryImpl(private val dataSource : IDataSource<List<DataModel>>) : Repository<List<DataModel>> {
 
-    override fun getData(text: String): Observable<List<DataModel>> {
+    override suspend fun getData(text: String): List<DataModel> {
         return dataSource.getData(text)
     }
 }
