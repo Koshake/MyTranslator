@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion Config.compileSdkVersion
+    buildToolsVersion Config.buildToolsVersion
+}
+
+dependencies {
+    implementation project(Modules.utils)
+    implementation project(Modules.model)
+
+
+    implementation AndroidX.appcompat
+
+    //Kotlin
+    implementation Kotlin.core
+    implementation Kotlin.stdlib
+    // Coroutines
+    implementation Coroutines.coroutinesCore
+    implementation Coroutines.coroutinesAndroid
+
+    //Test
+    testImplementation TestImpl.junit
+    androidTestImplementation TestImpl.runner
+    androidTestImplementation TestImpl.espresso
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+}
+
+repositories {
+    mavenCentral()
+}

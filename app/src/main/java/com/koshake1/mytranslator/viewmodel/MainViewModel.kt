@@ -1,9 +1,8 @@
 package com.koshake1.mytranslator.viewmodel
 
-import androidx.lifecycle.LiveData
-import com.koshake1.mytranslator.model.data.AppState
+import com.koshake1.core.viewmodel.BaseViewModel
+import com.koshake1.model.data.AppState
 import com.koshake1.mytranslator.view.main.MainInteractor
-import io.reactivex.observers.DisposableObserver
 import kotlinx.coroutines.*
 
 class MainViewModel(

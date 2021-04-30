@@ -1,7 +1,7 @@
 package com.koshake1.mytranslator.di
 
 import androidx.room.Room
-import com.koshake1.mytranslator.model.data.DataModel
+import com.koshake1.model.data.DataModel
 import com.koshake1.mytranslator.model.datasource.RetrofitDataSourceImpl
 import com.koshake1.mytranslator.model.datasource.RoomDataSourceImpl
 import com.koshake1.mytranslator.model.repository.Repository

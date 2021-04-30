@@ -8,13 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.koshake1.core.base.BaseFragment
+import com.koshake1.model.data.AppState
+import com.koshake1.model.data.DataModel
 import com.koshake1.mytranslator.R
-import com.koshake1.mytranslator.model.data.AppState
-import com.koshake1.mytranslator.model.data.DataModel
-import com.koshake1.mytranslator.view.base.BaseFragment
 import com.koshake1.mytranslator.view.history.adapter.HistoryAdapter
 import com.koshake1.mytranslator.view.main.MainActivity
-import com.koshake1.mytranslator.view.main.MainFragment
 import com.koshake1.mytranslator.viewmodel.HistoryViewModel
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.android.viewmodel.ext.android.viewModel

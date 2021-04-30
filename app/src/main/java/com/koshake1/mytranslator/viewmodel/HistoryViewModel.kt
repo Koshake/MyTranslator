@@ -1,6 +1,7 @@
 package com.koshake1.mytranslator.viewmodel
 
-import com.koshake1.mytranslator.model.data.AppState
+import com.koshake1.core.viewmodel.BaseViewModel
+import com.koshake1.model.data.AppState
 import com.koshake1.mytranslator.view.history.HistoryInteractor
 import kotlinx.coroutines.launch
 

@@ -4,8 +4,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.koshake1.model.data.DataModel
 import com.koshake1.mytranslator.R
-import com.koshake1.mytranslator.model.data.DataModel
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.main_recyclerview_item.view.*
 
