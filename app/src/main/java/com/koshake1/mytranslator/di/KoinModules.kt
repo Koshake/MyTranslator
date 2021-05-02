@@ -9,13 +9,17 @@ import com.koshake1.mytranslator.model.repository.RepositoryImpl
 import com.koshake1.mytranslator.model.repository.RepositoryLocal
 import com.koshake1.mytranslator.model.repository.RepositoryLocalImpl
 import com.koshake1.mytranslator.room.HistoryDatabase
-import com.koshake1.mytranslator.view.history.HistoryInteractor
 import com.koshake1.mytranslator.view.main.MainInteractor
-import com.koshake1.mytranslator.viewmodel.HistoryViewModel
 import com.koshake1.mytranslator.viewmodel.MainViewModel
 import org.koin.android.viewmodel.dsl.viewModel
+import org.koin.core.context.loadKoinModules
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
+fun injectDependencies() = loadModules
+
+private val loadModules by lazy {
+    loadKoinModules(listOf(application, mainScreen))
+}
 
 val application = module {
 
@@ -43,15 +47,5 @@ val mainScreen = module {
     }
     viewModel {
         MainViewModel(get())
-    }
-}
-
-val historyScreen = module {
-
-    factory {
-        HistoryInteractor(get(named(NAME_REMOTE)), get(named(NAME_LOCAL)))
-    }
-    viewModel {
-        HistoryViewModel(get())
     }
 }

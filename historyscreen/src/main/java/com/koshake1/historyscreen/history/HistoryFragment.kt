@@ -1,4 +1,4 @@
-package com.koshake1.mytranslator.view.history
+package com.koshake1.historyscreen.history
 
 import android.os.Bundle
 import android.util.Log
@@ -9,14 +9,13 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.koshake1.core.base.BaseFragment
+import com.koshake1.historyscreen.R
+import com.koshake1.historyscreen.history.adapter.HistoryAdapter
 import com.koshake1.model.data.AppState
 import com.koshake1.model.data.DataModel
-import com.koshake1.mytranslator.R
-import com.koshake1.mytranslator.view.history.adapter.HistoryAdapter
-import com.koshake1.mytranslator.view.main.MainActivity
-import com.koshake1.mytranslator.viewmodel.HistoryViewModel
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class HistoryFragment : BaseFragment<AppState, HistoryInteractor>() {
 
@@ -40,13 +39,14 @@ class HistoryFragment : BaseFragment<AppState, HistoryInteractor>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "History fragment onViewCreated ")
-        history_activity_recyclerview.layoutManager = LinearLayoutManager(context)
-        history_activity_recyclerview.adapter = adapter
+        history_recyclerview.layoutManager = LinearLayoutManager(context)
+        history_recyclerview.adapter = adapter
 
         setHasOptionsMenu(true)
-        (requireActivity() as MainActivity)?.supportActionBar?.setHomeButtonEnabled(true)
-        (requireActivity() as MainActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (requireActivity() as HistoryActivity)?.supportActionBar?.setHomeButtonEnabled(true)
+        (requireActivity() as HistoryActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        injectHistoryDependencies()
         model.viewState.observe(this@HistoryFragment, Observer<AppState> { renderData(it) })
 
         model.getData("", false)
@@ -55,7 +55,7 @@ class HistoryFragment : BaseFragment<AppState, HistoryInteractor>() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
-                (requireActivity() as MainActivity)?.onBackPressed()
+                (requireActivity() as HistoryActivity)?.onBackPressed()
                 true
             }
             else -> super.onOptionsItemSelected(item)
