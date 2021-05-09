@@ -2,7 +2,7 @@ import org.gradle.api.JavaVersion
 
 object Config {
     const val applicationId = "com.koshake1.mytranslator"
-    const val minSdkVersion = 24
+    const val minSdkVersion = 26
     const val targetSdkVersion =  30
     const val versionCode =  1
     const val versionName = "1.0"
@@ -17,6 +17,9 @@ object Modules {
     const val core = ":core"
     const val utils = ":utils"
     const val model = ":model"
+
+    //Features
+    const val historyScreen = ":historyscreen"
 }
 
 object Versions {
@@ -58,6 +61,9 @@ object Versions {
     const val picasso = "2.5.2"
     //Glide
     const val glide = "4.9.0"
+
+    //Google Play
+    const val googlePlayCore = "1.6.3"
 }
 
 object AndroidX {
@@ -111,4 +117,8 @@ object Room {
     const val runtime = "androidx.room:room-runtime:${Versions.room}"
     const val compiler = "androidx.room:room-compiler:${Versions.room}"
     const val room_ktx = "androidx.room:room-ktx:${Versions.room}"
+}
+
+object GooglePlay {
+    const val googlePlayCore = "com.google.android.play:core:${Versions.googlePlayCore}"
 }

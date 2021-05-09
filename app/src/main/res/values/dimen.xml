@@ -31,4 +31,5 @@
     <dimen name="text_size_large">25sp</dimen>
 
     <dimen name="swipe_layout_padding">@dimen/margin_xx_small</dimen>
+    <dimen name="bottom_sheet_dialog_corner_radius">10dp</dimen>
 </resources>

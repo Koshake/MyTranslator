@@ -1,12 +1,12 @@
-package com.koshake1.mytranslator.view.history.adapter
+package com.koshake1.historyscreen.history.adapter
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.koshake1.historyscreen.R
 import com.koshake1.model.data.DataModel
-import com.koshake1.mytranslator.R
 import kotlinx.android.synthetic.main.history_item.view.*
 
 class HistoryAdapter : RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
