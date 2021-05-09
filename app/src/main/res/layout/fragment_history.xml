@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true">
@@ -11,18 +12,10 @@
         android:gravity="center">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/main_activity_recyclerview"
+            android:id="@+id/history_activity_recyclerview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/search_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/margin_fab_end"
-            android:layout_marginBottom="@dimen/margin_fab_bottom"
-            android:src="@drawable/ic_search" />
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
     </FrameLayout>
 
     <include layout="@layout/loading_layout" />

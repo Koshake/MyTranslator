@@ -25,7 +25,7 @@ class MainViewModel(
     }
 
     override fun onCleared() {
-        liveDataForViewToObserve.postValue(AppState.Success(null))
+        cancelJob()
         super.onCleared()
     }
 
