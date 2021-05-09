@@ -1,6 +1,6 @@
 package com.koshake1.mytranslator.model.repository
 
-import com.koshake1.mytranslator.model.data.DataModel
+import com.koshake1.model.data.DataModel
 import com.koshake1.mytranslator.model.datasource.IDataSource
 
 class RepositoryImpl(private val dataSource : IDataSource<List<DataModel>>) : Repository<List<DataModel>> {

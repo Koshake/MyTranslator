@@ -1,7 +1,7 @@
 package com.koshake1.mytranslator.model.datasource
 
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
-import com.koshake1.mytranslator.model.data.DataModel
+import com.koshake1.model.data.DataModel
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor

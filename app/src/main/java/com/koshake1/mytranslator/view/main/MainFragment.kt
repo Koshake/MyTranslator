@@ -3,15 +3,14 @@ package com.koshake1.mytranslator.view.main
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.koshake1.core.base.BaseFragment
+import com.koshake1.model.data.AppState
+import com.koshake1.model.data.DataModel
 import com.koshake1.mytranslator.R
-import com.koshake1.mytranslator.model.data.AppState
-import com.koshake1.mytranslator.model.data.DataModel
 import com.koshake1.mytranslator.utils.convertMeaningsToString
-import com.koshake1.mytranslator.view.base.BaseFragment
 import com.koshake1.mytranslator.view.descriptions.DescriptionsFragment
 import com.koshake1.mytranslator.view.history.HistoryFragment
 import com.koshake1.mytranslator.view.main.adapter.MainAdapter
@@ -40,7 +39,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
                         DescriptionsFragment.create(
                             data.text!!,
                             convertMeaningsToString(data.meanings!!),
-                            data.meanings[0].imageUrl
+                            data.meanings!![0].imageUrl
                         )
                     )
                     .addToBackStack("myTranslator")

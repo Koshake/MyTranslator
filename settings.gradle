@@ -1,2 +1,5 @@
-include ':app'
+include ":model"
+include ":utils"
+include ":app"
+include ":core"
 rootProject.name = "MyTranslator"

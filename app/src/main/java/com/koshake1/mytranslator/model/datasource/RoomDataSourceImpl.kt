@@ -1,7 +1,7 @@
 package com.koshake1.mytranslator.model.datasource
 
-import com.koshake1.mytranslator.model.data.AppState
-import com.koshake1.mytranslator.model.data.DataModel
+import com.koshake1.model.data.AppState
+import com.koshake1.model.data.DataModel
 import com.koshake1.mytranslator.room.HistoryDao
 import com.koshake1.mytranslator.room.HistoryEntity
 

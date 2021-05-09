@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.koshake1.mytranslator.R
-import com.koshake1.mytranslator.utils.network.isOnline
-import com.koshake1.mytranslator.utils.ui.AlertDialogFragment
 import com.koshake1.mytranslator.view.main.MainActivity
+import com.koshake1.utils.network.isOnline
+import com.koshake1.utils.ui.AlertDialogFragment
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_descriptions.*
