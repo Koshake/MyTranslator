@@ -6,9 +6,10 @@ import android.util.Log
 import android.view.*
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.play.core.splitinstall.SplitInstallManager
 import com.google.android.play.core.splitinstall.SplitInstallManagerFactory
 import com.google.android.play.core.splitinstall.SplitInstallRequest
@@ -21,8 +22,8 @@ import com.koshake1.mytranslator.utils.convertMeaningsToString
 import com.koshake1.mytranslator.view.descriptions.DescriptionsFragment
 import com.koshake1.mytranslator.view.main.adapter.MainAdapter
 import com.koshake1.mytranslator.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.fragment_main.*
-import org.koin.android.viewmodel.ext.android.viewModel
+import com.koshake1.utils.ui.viewById
+import org.koin.android.scope.currentScope
 
 class MainFragment : BaseFragment<AppState, MainInteractor>() {
 
@@ -35,7 +36,10 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
 
     private lateinit var splitInstallManager: SplitInstallManager
 
-    override val model by viewModel<MainViewModel>()
+    override lateinit var model: MainViewModel
+
+    private val mainActivityRecyclerView by viewById<RecyclerView>(R.id.main_activity_recyclerview)
+    private val searchFAB by viewById<FloatingActionButton>(R.id.search_fab)
 
     private val observer = Observer<AppState> { renderData(it) }
     private val adapter: MainAdapter by lazy { MainAdapter(onListItemClickListener) }
@@ -102,7 +106,8 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
     ): View? {
         Log.d(TAG, "Main fragment onCreate view ")
         injectDependencies()
-        model.viewState.observe(this@MainFragment, observer)
+        initViewModel()
+       // model.viewState.observe(this@MainFragment, observer)
         return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
@@ -110,18 +115,23 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
         super.onViewCreated(view, savedInstanceState)
 
         Log.d(TAG, "Main fragment onViewCreated ")
-        main_activity_recyclerview.layoutManager = LinearLayoutManager(context)
-        main_activity_recyclerview.adapter = adapter
+        check(mainActivityRecyclerView.adapter == null) { "The ViewModel should be initialised first" }
+        mainActivityRecyclerView.layoutManager = LinearLayoutManager(context)
+        mainActivityRecyclerView.adapter = adapter
 
         (requireActivity() as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         setHasOptionsMenu(true)
 
-        search_fab.setOnClickListener {
+        searchFAB.setOnClickListener {
             val searchDialogFragment = SearchDialogFragment.newInstance()
             searchDialogFragment.setOnSearchClickListener(object :
                 SearchDialogFragment.OnSearchClickListener {
                 override fun onClick(searchWord: String) {
-                    model.getData(searchWord, true)
+                    if (isNetworkAvailable) {
+                        model.getData(searchWord, isNetworkAvailable)
+                    } else {
+                        showNoInternetConnectionDialog()
+                    }
                 }
             })
 
@@ -135,5 +145,11 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
     override fun onDestroy() {
         super.onDestroy()
         Log.d(TAG, "Main fragment onDestroy ")
+    }
+
+    private fun initViewModel() {
+        val viewModel: MainViewModel by currentScope.inject()
+        model = viewModel
+        model.viewState.observe(this@MainFragment, observer)
     }
 }

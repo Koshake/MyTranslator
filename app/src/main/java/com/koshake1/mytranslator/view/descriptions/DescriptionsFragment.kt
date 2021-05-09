@@ -6,16 +6,25 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.koshake1.mytranslator.R
 import com.koshake1.mytranslator.view.main.MainActivity
-import com.koshake1.utils.network.isOnline
+import com.koshake1.utils.network.OnlineLiveData
 import com.koshake1.utils.ui.AlertDialogFragment
+import com.koshake1.utils.ui.viewById
 import com.squareup.picasso.Callback
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.fragment_descriptions.*
 
 class DescriptionsFragment : Fragment() {
+
+    private val descriptionSwipeLayout by viewById<SwipeRefreshLayout>(R.id.description_screen_swipe_refresh_layout)
+    private val descriptionHeader by viewById<TextView>(R.id.description_header)
+    private val descriptionText by viewById<TextView>(R.id.description_textview)
+    private val descriptionImage by viewById<ImageView>(R.id.description_imageview)
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,7 +41,7 @@ class DescriptionsFragment : Fragment() {
         (requireActivity() as MainActivity)?.supportActionBar?.setHomeButtonEnabled(true)
         (requireActivity() as MainActivity)?.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        description_screen_swipe_refresh_layout.setOnRefreshListener { startLoadingOrShowError() }
+        descriptionSwipeLayout.setOnRefreshListener { startLoadingOrShowError() }
         setData()
     }
 
@@ -48,13 +57,13 @@ class DescriptionsFragment : Fragment() {
 
     private fun setData() {
         val bundle = arguments
-        description_header.text = bundle?.getString(WORD_EXTRA)
-        description_textview.text = bundle?.getString(DESCRIPTION_EXTRA)
+        descriptionHeader.text = bundle?.getString(WORD_EXTRA)
+        descriptionText.text = bundle?.getString(DESCRIPTION_EXTRA)
         val imageLink = bundle?.getString(URL_EXTRA)
         if (imageLink.isNullOrBlank()) {
             stopRefreshAnimationIfNeeded()
         } else {
-            usePicassoToLoadPhoto(description_imageview, imageLink)
+            usePicassoToLoadPhoto(descriptionImage, imageLink)
         }
     }
 
@@ -74,23 +83,29 @@ class DescriptionsFragment : Fragment() {
     }
 
     private fun startLoadingOrShowError() {
-        if (isOnline(requireContext())) {
-            setData()
-        } else {
-            AlertDialogFragment.newInstance(
-                getString(R.string.dialog_title_device_is_offline),
-                getString(R.string.dialog_message_device_is_offline)
-            ).show(
-                requireFragmentManager(),
-                DIALOG_FRAGMENT_TAG
+        context?.let {
+            OnlineLiveData(it).observe(
+                this@DescriptionsFragment,
+                Observer<Boolean>{ isOnline->
+                    if (isOnline) {
+                    setData()
+                } else {
+                    AlertDialogFragment.newInstance(
+                        getString(R.string.dialog_title_device_is_offline),
+                        getString(R.string.dialog_message_device_is_offline)
+                    ).show(
+                        requireFragmentManager(),
+                        DIALOG_FRAGMENT_TAG
+                    )
+                    stopRefreshAnimationIfNeeded()
+                } }
             )
-            stopRefreshAnimationIfNeeded()
         }
     }
 
     private fun stopRefreshAnimationIfNeeded() {
-        if (description_screen_swipe_refresh_layout.isRefreshing) {
-            description_screen_swipe_refresh_layout.isRefreshing = false
+        if (descriptionSwipeLayout.isRefreshing) {
+            descriptionSwipeLayout.isRefreshing = false
         }
     }
 
