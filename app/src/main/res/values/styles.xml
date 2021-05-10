@@ -1,10 +1,11 @@
 <resources>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:forceDarkAllowed">true</item>
     </style>
 
     <style name="BaseTextEdit" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
@@ -12,17 +13,17 @@
     </style>
 
     <style name="TextViewButtonStyle" parent="Widget.MaterialComponents.Button.TextButton">
-        <item name="android:textColor">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/baseTextColor</item>
     </style>
 
     <style name="BaseTextStyle">
-        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
         <item name="android:textSize">@dimen/text_size_standard</item>
         <item name="android:textStyle">normal</item>
     </style>
 
     <style name="HeaderTextStyle">
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@color/baseTextColor</item>
         <item name="android:textSize">@dimen/text_size_standard_header</item>
     </style>
 </resources>
