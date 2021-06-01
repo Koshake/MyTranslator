@@ -8,11 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.koshake1.core.base.BaseFragment
 import com.koshake1.historyscreen.R
 import com.koshake1.historyscreen.history.adapter.HistoryAdapter
 import com.koshake1.model.data.AppState
 import com.koshake1.model.data.DataModel
+import com.koshake1.utils.ui.viewById
 import kotlinx.android.synthetic.main.fragment_history.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -27,6 +30,8 @@ class HistoryFragment : BaseFragment<AppState, HistoryInteractor>() {
 
     private val adapter: HistoryAdapter by lazy { HistoryAdapter() }
 
+    private val historyRecyclerView by viewById<RecyclerView>(R.id.history_recyclerview)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -39,8 +44,8 @@ class HistoryFragment : BaseFragment<AppState, HistoryInteractor>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.d(TAG, "History fragment onViewCreated ")
-        history_recyclerview.layoutManager = LinearLayoutManager(context)
-        history_recyclerview.adapter = adapter
+        historyRecyclerView.layoutManager = LinearLayoutManager(context)
+        historyRecyclerView.adapter = adapter
 
         setHasOptionsMenu(true)
         (requireActivity() as HistoryActivity)?.supportActionBar?.setHomeButtonEnabled(true)
