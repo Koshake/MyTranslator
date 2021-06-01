@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="baseTextColor">@android:color/white</color>
+    <color name="secondaryTextColor">@color/color_gray_white</color>
+</resources>

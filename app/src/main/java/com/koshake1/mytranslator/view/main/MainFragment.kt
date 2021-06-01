@@ -24,6 +24,7 @@ import com.koshake1.mytranslator.view.main.adapter.MainAdapter
 import com.koshake1.mytranslator.viewmodel.MainViewModel
 import com.koshake1.utils.ui.viewById
 import org.koin.android.scope.currentScope
+import android.provider.Settings
 
 class MainFragment : BaseFragment<AppState, MainInteractor>() {
 
@@ -32,6 +33,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
         const val SEARCH_FRAGMENT_TAG: String = "add_search_dialog_fragment"
         private const val HISTORY_FRAGMENT_PATH = "com.koshake1.historyscreen.history.HistoryActivity"
         private const val HISTORY_FRAGMENT_FEATURE_NAME = "historyscreen"
+        const val SETTINGS_MENU_TEG = 42
     }
 
     private lateinit var splitInstallManager: SplitInstallManager
@@ -62,7 +64,7 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
         }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.history_menu, menu)
+        inflater.inflate(R.menu.menu_screen_settings, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -89,6 +91,10 @@ class MainFragment : BaseFragment<AppState, MainInteractor>() {
                         ).show()
                     }
 
+                true
+            }
+            R.id.menu_screen_settings -> {
+                startActivityForResult(Intent(Settings.Panel.ACTION_INTERNET_CONNECTIVITY), SETTINGS_MENU_TEG)
                 true
             }
             else -> super.onOptionsItemSelected(item)

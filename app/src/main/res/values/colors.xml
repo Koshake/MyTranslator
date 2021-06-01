@@ -5,4 +5,8 @@
     <color name="colorAccent">#03DAC5</color>
 
     <color name="color_gray">#66000000</color>
+    <color name="color_gray_white">#ecefed</color>
+
+    <color name="baseTextColor">@android:color/black</color>
+    <color name="secondaryTextColor">@color/color_gray</color>
 </resources>
